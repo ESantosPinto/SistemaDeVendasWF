@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SistemaDeVendas.UI.Usuario;
+using System;
 using System.Windows.Forms;
 
 namespace SistemaDeVendas
@@ -16,7 +14,22 @@ namespace SistemaDeVendas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPrincipal());
+
+            using (frmLogin loginForm = new frmLogin())
+            {
+                Application.Run(loginForm);
+
+
+                if (loginForm.LoginSuccesso)
+                {
+                    // Exibe a tela principal
+                    Application.Run(new frmPrincipal());
+                }
+                else {
+                    // Fecha o aplicativo se o login falhar ou for cancelado
+                    Application.Exit();
+                }
+            }
         }
     }
 }
