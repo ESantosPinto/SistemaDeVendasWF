@@ -1,6 +1,7 @@
 ﻿using SistemaDeVendas.DAL.Usuarios;
 using SistemaDeVendas.Models;
 using SistemaDeVendas.Models.Usuarios;
+using SistemaDeVendas.Util;
 using SistemaDeVendas.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace SistemaDeVendas.BLL.Usuarios
     public class BLL_Usuario
     {
         DAL_Usuario dALUsuario = new DAL_Usuario();
+        Logger logger = new Logger();
+
         public ResultadoValidacao ValidarUsuario(Usuario usuario, string senha, string confirmarSenha)
         {
             // Validações básicas
@@ -76,7 +79,15 @@ namespace SistemaDeVendas.BLL.Usuarios
 
         public string CadastrarUsuario(Usuario novoUsuario)
         {
-            return dALUsuario.CadastrarUsuario(novoUsuario);
+            try
+            {
+                return dALUsuario.CadastrarUsuario(novoUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao cadastrar usuário", ex);
+            }
         }
+
     }
 }

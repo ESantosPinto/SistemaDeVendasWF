@@ -11,6 +11,9 @@ namespace SistemaDeVendas.DAL.Usuarios
     {
 
         DAL_Connection _dalConnection = new DAL_Connection();
+        Logger logger = new Logger();
+
+
         public string CadastrarUsuario(Usuario usuario)
         {
             string mensagemRetorno = string.Empty;
@@ -50,11 +53,13 @@ namespace SistemaDeVendas.DAL.Usuarios
             catch (SqlException ex)
             {
                 // Capturar erros relacionados ao SQL Server
+                logger.Log($"Erro ao acessar o banco de dados: {ex.Message}", "ERROR", nameof(DAL_Usuario));
                 mensagemRetorno = $"Erro ao acessar o banco de dados: {ex.Message}";
             }
             catch (Exception ex)
             {
                 // Capturar outros tipos de exceções
+                logger.Log($"Erro inesperado ao cadastrar usuário: {ex.Message}", "ERROR", nameof(DAL_Usuario));
                 mensagemRetorno = $"Ocorreu um erro: {ex.Message}";
             }
 

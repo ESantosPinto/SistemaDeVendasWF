@@ -58,6 +58,7 @@
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Identity.cs" />
+    <Compile Include="Models\RegistroDeLog.cs" />
     <Compile Include="Models\ResultadoValidacao.cs" />
     <Compile Include="Models\Usuarios\Usuario.cs" />
     <Compile Include="Program.cs" />
@@ -81,6 +82,7 @@
       <DependentUpon>frmRecuperarSenha.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\DAL_Connection.cs" />
+    <Compile Include="Util\Logger.cs" />
     <Compile Include="Util\UtilitarioHash.cs" />
     <Compile Include="Util\ValidadorDeEmail.cs" />
     <EmbeddedResource Include="frmPrincipal.resx">

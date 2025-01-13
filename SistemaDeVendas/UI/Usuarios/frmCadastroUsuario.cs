@@ -10,6 +10,7 @@ namespace SistemaDeVendas.Ui.Usuarios
     public partial class frmCadastroUsuario : Form
     {
         BLL_Usuario bLL_Usuario = new BLL_Usuario();
+        Logger logger = new Logger();
 
         public frmCadastroUsuario()
         {
@@ -86,13 +87,22 @@ namespace SistemaDeVendas.Ui.Usuarios
             }
             catch (Exception ex)
             {
+                logger.Log($"Erro ao cadastrar usuário: {ex.Message}", "ERROR", nameof(frmCadastroUsuario));
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private string GerarHashSenha(string senha)
         {
-            return UtilitarioHash.HashSenha(senha);
+            try
+            {
+                return UtilitarioHash.HashSenha(senha);
+            }
+            catch (Exception ex)
+            {
+                logger.Log($"Erro ao gerar hash da senha: {ex.Message}", "ERROR", nameof(frmCadastroUsuario));
+                throw;
+            }
         }       
 
         private void btnCancelar_Click_1(object sender, EventArgs e)
