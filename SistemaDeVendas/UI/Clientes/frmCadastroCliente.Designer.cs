@@ -52,12 +52,12 @@ namespace SistemaDeVendas
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgvClientesCadastrados = new System.Windows.Forms.DataGridView();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnExportarExcel = new System.Windows.Forms.Button();
             this.btnExportarTXT = new System.Windows.Forms.Button();
-            this.dgvClientesCadastrados = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesCadastrados)).BeginInit();
@@ -278,6 +278,15 @@ namespace SistemaDeVendas
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Clientes Cadastrados";
             // 
+            // dgvClientesCadastrados
+            // 
+            this.dgvClientesCadastrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClientesCadastrados.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvClientesCadastrados.Location = new System.Drawing.Point(3, 16);
+            this.dgvClientesCadastrados.Name = "dgvClientesCadastrados";
+            this.dgvClientesCadastrados.Size = new System.Drawing.Size(954, 296);
+            this.dgvClientesCadastrados.TabIndex = 0;
+            // 
             // btnCadastrar
             // 
             this.btnCadastrar.BackColor = System.Drawing.Color.DarkGray;
@@ -300,6 +309,7 @@ namespace SistemaDeVendas
             this.btnExcluir.TabIndex = 8;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = false;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnLimpar
             // 
@@ -334,15 +344,6 @@ namespace SistemaDeVendas
             this.btnExportarTXT.TabIndex = 6;
             this.btnExportarTXT.Text = "Exportar txt";
             this.btnExportarTXT.UseVisualStyleBackColor = false;
-            // 
-            // dgvClientesCadastrados
-            // 
-            this.dgvClientesCadastrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientesCadastrados.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvClientesCadastrados.Location = new System.Drawing.Point(3, 16);
-            this.dgvClientesCadastrados.Name = "dgvClientesCadastrados";
-            this.dgvClientesCadastrados.Size = new System.Drawing.Size(954, 296);
-            this.dgvClientesCadastrados.TabIndex = 0;
             // 
             // frmCadastroDeCliente
             // 

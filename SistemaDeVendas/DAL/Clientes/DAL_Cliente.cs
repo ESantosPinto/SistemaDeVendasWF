@@ -67,7 +67,7 @@ namespace SistemaDeVendas.DAL
             return mensagemRetorno;
         }
 
-        internal List<Cliente> ConsultarCliente()
+        public List<Cliente> ConsultarCliente()
         {
             var clientes = new List<Cliente>();  // Lista para armazenar os resultados.
 
@@ -122,6 +122,49 @@ namespace SistemaDeVendas.DAL
            
             return clientes;
         }
+
+        public string ExcluirCliente(int clienteId)
+        {
+            string mensagemRetorno = string.Empty;
+
+            try
+            {
+                string connectionString = _dalConnection.GetConnectionString();
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "DELETE FROM Clientes WHERE IdCliente = @IdCliente";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@IdCliente", clienteId);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            mensagemRetorno = "Cliente excluído com sucesso.";
+                        }
+                        else
+                        {
+                            mensagemRetorno = "Cliente não encontrado.";
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemRetorno = $"Erro ao excluir cliente: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                mensagemRetorno = $"Erro inesperado: {ex.Message}";
+            }
+
+            return mensagemRetorno;
+        }
+
 
     }
 }

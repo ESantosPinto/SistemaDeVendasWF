@@ -100,5 +100,16 @@ namespace SistemaDeVendas.BLL
              var cliente = _dalCliente.ConsultarCliente();
             return cliente;
         }
+
+        public string ExcluirCliente(int clienteId)
+        {
+            if (clienteId <= 0)
+            {
+                return "ID do cliente inválido.";
+            }
+
+            return _dalCliente.ExcluirCliente(clienteId);
+        }
+
     }
 }

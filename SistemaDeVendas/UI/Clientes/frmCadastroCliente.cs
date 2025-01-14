@@ -27,7 +27,7 @@ namespace SistemaDeVendas
             Cliente cliente = new Cliente
             {
                 Nome = txtNome.Text,
-                Cpf = StringUtils.RemoverFormatacao(mtbCpf.Text), 
+                Cpf = StringUtils.RemoverFormatacao(mtbCpf.Text),
                 Email = txtEmail.Text,
                 Telefone = StringUtils.RemoverFormatacao(txtTelefone.Text),
                 Cep = StringUtils.RemoverFormatacao(mtbCep.Text),
@@ -69,7 +69,7 @@ namespace SistemaDeVendas
             else
             {
                 string retornoCadastro = _bllCliente.CadastrarCliente(cliente);
-                
+
                 if (!string.IsNullOrEmpty(retornoCadastro))
                 {
                     MessageBox.Show(retornoCadastro, "Resultado do Cadastro");
@@ -81,17 +81,17 @@ namespace SistemaDeVendas
                 }
             }
         }
-               
-      
+
+
         private void mtbCpf_Leave(object sender, EventArgs e)
         {
             var isValid = ValidadorDeDocumento.ValidarCpf(mtbCpf.Text);
             if (!isValid)
-            { 
+            {
                 MessageBox.Show("CPF inválido. Por favor, insira um CPF válido.");
             }
         }
-       
+
         private async void mtbCep_Leave(object sender, EventArgs e)
         {
             string cep = StringUtils.RemoverFormatacao(mtbCep.Text);
@@ -112,6 +112,55 @@ namespace SistemaDeVendas
                     MessageBox.Show($"Erro ao buscar endereço: {ex.Message}", "Erro");
                 }
             }
+        }      
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (dgvClientesCadastrados.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecione um cliente para excluir.", "Atenção");
+                return;
+            }
+
+            // Obter o ID do cliente selecionado
+            int clienteId = Convert.ToInt32(dgvClientesCadastrados.SelectedRows[0].Cells["Id"].Value);
+
+            // Confirmar a exclusão
+            var confirmResult = MessageBox.Show(
+                "Tem certeza de que deseja excluir este cliente?",
+                "Confirmar Exclusão",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
+                {
+                    string resultadoExclusao = _bllCliente.ExcluirCliente(clienteId);
+
+                    if (!string.IsNullOrEmpty(resultadoExclusao))
+                    {
+                        MessageBox.Show(resultadoExclusao, "Resultado");
+                        CarregaGridClientes(); // Atualiza a lista de clientes após a exclusão
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao excluir o cliente: {ex.Message}", "Erro");
+                }
+            }
+        }
+        private void CarregaGridClientes()
+        {
+            try
+            {
+                object cliente = _bllCliente.ConsultarCliente();
+                dgvClientesCadastrados.DataSource = cliente;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar a lista de clientes: {ex.Message}", "Erro");
+            }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
@@ -127,23 +176,11 @@ namespace SistemaDeVendas
             txtCidade.Clear();
             txtEstado.Clear();
 
-            
+
             txtNome.Focus();
         }
 
-        private void CarregaGridClientes()
-        {
-            try
-            {
-                object cliente = _bllCliente.ConsultarCliente();
-                dgvClientesCadastrados.DataSource = cliente;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao atualizar a lista de clientes: {ex.Message}", "Erro");
-            }
-        }
-
+       
     }
-}
+}  
 
