@@ -6,13 +6,10 @@ namespace SistemaDeVendas.Registro
     {
         public int Id { get; set; }
         public string Mensagem { get; set; }
-        public string Nivel { get; set; } // Ex.: "INFO", "ERRO", "DEPURAÇÃO"
-        public string Fonte { get; set; } // Origem do log (classe ou método)
-        public DateTime DataHora { get; set; }
+        public string Nivel { get; set; } 
+        public string Fonte { get; set; }
+        public DateTime DataHora { get; set; } = DateTime.Now;
 
-        public RegistroDeLog()
-        {
-            DataHora = DateTime.Now;
-        }
+       
     }
 }

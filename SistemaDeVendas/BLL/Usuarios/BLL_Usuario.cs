@@ -13,7 +13,7 @@ namespace SistemaDeVendas.BLL.Usuarios
 {
     public class BLL_Usuario
     {
-        DAL_Usuario dALUsuario = new DAL_Usuario();
+        public DAL_Usuario dALUsuario = new DAL_Usuario();
         Logger logger = new Logger();
 
         public ResultadoValidacao ValidarUsuario(Usuario usuario, string senha, string confirmarSenha)
