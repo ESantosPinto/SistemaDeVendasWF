@@ -8,11 +8,9 @@ namespace SistemaDeVendas.BLL
 {
     public class BLL_Cliente
     {
-        DAL_Cliente _dalCliente = new DAL_Cliente();        
+        DAL_Cliente _dalCliente = new DAL_Cliente();      
 
-        public BLL_Cliente()
-        {
-        }
+   
 
         public ResultadoValidacao ValidarDadosCliente(Cliente cliente) {
 
@@ -95,7 +93,7 @@ namespace SistemaDeVendas.BLL
            return _dalCliente.CadastrarCliente(cliente);
         }
 
-        internal object ConsultarCliente()
+        public object ConsultarCliente()
         {
              var cliente = _dalCliente.ConsultarCliente();
             return cliente;
@@ -109,6 +107,26 @@ namespace SistemaDeVendas.BLL
             }
 
             return _dalCliente.ExcluirCliente(clienteId);
+        }
+
+        public string AtualizarCliente(Cliente cliente)
+        {
+            if (cliente == null || cliente.Id <= 0)
+            {
+                return "Dados inválidos para atualização.";
+            }
+
+            return _dalCliente.AtualizarCliente(cliente);
+        }
+
+        public Cliente ConsultarClientePorId(int clienteId)
+        {
+            if (clienteId <= 0)
+            {
+                throw new ArgumentException("ID do cliente inválido.");
+            }
+
+            return _dalCliente.ConsultarClientePorId(clienteId);
         }
 
     }

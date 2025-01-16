@@ -56,8 +56,7 @@ namespace SistemaDeVendas
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
-            this.btnExportarExcel = new System.Windows.Forms.Button();
-            this.btnExportarTXT = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesCadastrados)).BeginInit();
@@ -65,6 +64,8 @@ namespace SistemaDeVendas
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.mtbCep);
             this.groupBox1.Controls.Add(this.mtbCpf);
             this.groupBox1.Controls.Add(this.txtTelefone);
@@ -270,6 +271,9 @@ namespace SistemaDeVendas
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dgvClientesCadastrados);
             this.groupBox2.Location = new System.Drawing.Point(12, 203);
             this.groupBox2.Name = "groupBox2";
@@ -286,12 +290,14 @@ namespace SistemaDeVendas
             this.dgvClientesCadastrados.Name = "dgvClientesCadastrados";
             this.dgvClientesCadastrados.Size = new System.Drawing.Size(954, 296);
             this.dgvClientesCadastrados.TabIndex = 0;
+            this.dgvClientesCadastrados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientesCadastrados_CellContentClick);
             // 
             // btnCadastrar
             // 
+            this.btnCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCadastrar.BackColor = System.Drawing.Color.DarkGray;
             this.btnCadastrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrar.Location = new System.Drawing.Point(686, 171);
+            this.btnCadastrar.Location = new System.Drawing.Point(590, 171);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(87, 26);
             this.btnCadastrar.TabIndex = 7;
@@ -301,6 +307,7 @@ namespace SistemaDeVendas
             // 
             // btnExcluir
             // 
+            this.btnExcluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExcluir.BackColor = System.Drawing.Color.DarkGray;
             this.btnExcluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExcluir.Location = new System.Drawing.Point(784, 171);
@@ -313,9 +320,10 @@ namespace SistemaDeVendas
             // 
             // btnLimpar
             // 
+            this.btnLimpar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLimpar.BackColor = System.Drawing.Color.DarkGray;
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpar.Location = new System.Drawing.Point(882, 171);
+            this.btnLimpar.Location = new System.Drawing.Point(881, 171);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(87, 26);
             this.btnLimpar.TabIndex = 9;
@@ -323,35 +331,25 @@ namespace SistemaDeVendas
             this.btnLimpar.UseVisualStyleBackColor = false;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
-            // btnExportarExcel
+            // btnEditar
             // 
-            this.btnExportarExcel.BackColor = System.Drawing.Color.DarkGray;
-            this.btnExportarExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportarExcel.Location = new System.Drawing.Point(686, 524);
-            this.btnExportarExcel.Name = "btnExportarExcel";
-            this.btnExportarExcel.Size = new System.Drawing.Size(131, 26);
-            this.btnExportarExcel.TabIndex = 5;
-            this.btnExportarExcel.Text = "Exportar Excel";
-            this.btnExportarExcel.UseVisualStyleBackColor = false;
-            // 
-            // btnExportarTXT
-            // 
-            this.btnExportarTXT.BackColor = System.Drawing.Color.DarkGray;
-            this.btnExportarTXT.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportarTXT.Location = new System.Drawing.Point(838, 524);
-            this.btnExportarTXT.Name = "btnExportarTXT";
-            this.btnExportarTXT.Size = new System.Drawing.Size(131, 26);
-            this.btnExportarTXT.TabIndex = 6;
-            this.btnExportarTXT.Text = "Exportar txt";
-            this.btnExportarTXT.UseVisualStyleBackColor = false;
+            this.btnEditar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditar.BackColor = System.Drawing.Color.DarkGray;
+            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditar.Location = new System.Drawing.Point(687, 171);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(87, 26);
+            this.btnEditar.TabIndex = 10;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // frmCadastroDeCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.btnExportarTXT);
-            this.Controls.Add(this.btnExportarExcel);
+            this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.btnCadastrar);
@@ -394,10 +392,9 @@ namespace SistemaDeVendas
         private System.Windows.Forms.Button btnCadastrar;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnLimpar;
-        private System.Windows.Forms.Button btnExportarExcel;
-        private System.Windows.Forms.Button btnExportarTXT;
         private System.Windows.Forms.MaskedTextBox mtbCpf;
         private System.Windows.Forms.MaskedTextBox mtbCep;
         private System.Windows.Forms.DataGridView dgvClientesCadastrados;
+        private System.Windows.Forms.Button btnEditar;
     }
 }

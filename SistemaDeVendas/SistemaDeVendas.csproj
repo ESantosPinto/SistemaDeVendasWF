@@ -33,12 +33,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,14 +63,17 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Cliente\BLL_Cliente.cs" />
-    <Compile Include="BLL\Endereco\BLL_Endereco.cs" />
+    <Compile Include="BLL\Produtos\BLL_Produto.cs" />
+    <Compile Include="BLL\Clientes\BLL_Cliente.cs" />
+    <Compile Include="BLL\Enderecos\BLL_Endereco.cs" />
     <Compile Include="BLL\Logins\BLL_Login.cs" />
     <Compile Include="BLL\Usuarios\BLL_Usuario.cs" />
     <Compile Include="DAL\Clientes\DAL_Cliente.cs" />
     <Compile Include="DAL\Logins\DAL_Login.cs" />
+    <Compile Include="DAL\Produtos\DAL_Produto.cs" />
     <Compile Include="DAL\Usuarios\DAL_Usuario.cs" />
     <Compile Include="frmPrincipal.cs">
       <SubType>Form</SubType>
@@ -66,6 +84,7 @@
     <Compile Include="Models\Cliente\Cliente.cs" />
     <Compile Include="Models\Endereco\Endereco.cs" />
     <Compile Include="Models\Identity.cs" />
+    <Compile Include="Models\Produto\Produto.cs" />
     <Compile Include="Models\RegistroDeLog.cs" />
     <Compile Include="Models\ResultadoValidacao.cs" />
     <Compile Include="Models\Usuarios\Usuario.cs" />
@@ -76,6 +95,12 @@
     </Compile>
     <Compile Include="UI\Clientes\frmCadastroCliente.Designer.cs">
       <DependentUpon>frmCadastroCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Produtos\frmCadastroDeProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Produtos\frmCadastroDeProduto.Designer.cs">
+      <DependentUpon>frmCadastroDeProduto.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Usuarios\frmCadastroUsuario.cs">
       <SubType>Form</SubType>
@@ -116,6 +141,9 @@
     </Compile>
     <EmbeddedResource Include="UI\Clientes\frmCadastroCliente.resx">
       <DependentUpon>frmCadastroCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Produtos\frmCadastroDeProduto.resx">
+      <DependentUpon>frmCadastroDeProduto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Usuarios\frmCadastroUsuario.resx">
       <DependentUpon>frmCadastroUsuario.cs</DependentUpon>

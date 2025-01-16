@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaDeVendas.UI.Produtos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +22,12 @@ namespace SistemaDeVendas
             Form cadastroDeCliente = new frmCadastroDeCliente();
             AddFormToToolStripContainer(toolStripContainer1, cadastroDeCliente);
         }
-       
+
+        private void produtoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form cadastroDeProduto = new frmCadastroDeProduto();
+            AddFormToToolStripContainer(toolStripContainer1, cadastroDeProduto);
+        }
         private void AddFormToToolStripContainer(ToolStripContainer toolStripContainer, Form form)
         {
             // Remover qualquer formulário previamente adicionado.
@@ -41,6 +47,6 @@ namespace SistemaDeVendas
             form.Show();
         }
 
-        
+       
     }
 }

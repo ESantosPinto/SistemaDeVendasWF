@@ -165,6 +165,109 @@ namespace SistemaDeVendas.DAL
             return mensagemRetorno;
         }
 
+        public string AtualizarCliente(Cliente cliente)
+        {
+            string mensagemRetorno = string.Empty;
+
+            try
+            {
+                string connectionString = _dalConnection.GetConnectionString();
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    using (var command = new SqlCommand("Pr_AtualizarCliente", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@IdCliente", cliente.Id);
+                        command.Parameters.AddWithValue("@Nome", cliente.Nome);
+                        command.Parameters.AddWithValue("@Cpf", cliente.Cpf);
+                        command.Parameters.AddWithValue("@Email", cliente.Email);
+                        command.Parameters.AddWithValue("@Telefone", cliente.Telefone);
+                        command.Parameters.AddWithValue("@Cep", cliente.Cep);
+                        command.Parameters.AddWithValue("@Bairro", cliente.Bairro);
+                        command.Parameters.AddWithValue("@Logradouro", cliente.Logradouro);
+                        command.Parameters.AddWithValue("@Numero", cliente.Numero);
+                        command.Parameters.AddWithValue("@Cidade", cliente.Cidade);
+                        command.Parameters.AddWithValue("@Estado", cliente.UF);
+
+                        var mensagemParam = new SqlParameter("@Mensagem", SqlDbType.NVarChar, 1000) 
+                        { 
+                            Direction = ParameterDirection.Output 
+                        }; 
+                        command.Parameters.Add(mensagemParam);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        mensagemRetorno = mensagemParam.Value?.ToString() ?? "Cliente não encontrado.";
+
+                        
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemRetorno = $"Erro ao atualizar cliente: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                mensagemRetorno = $"Erro inesperado: {ex.Message}";
+            }
+
+            return mensagemRetorno;
+        }
+
+        public Cliente ConsultarClientePorId(int clienteId)
+        {
+            Cliente cliente = null;
+
+            try
+            {
+                string connectionString = _dalConnection.GetConnectionString();
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT IdCliente, Nome, Email, Cpf, Telefone, Cep, Bairro, Logradouro, Numero, Cidade, Estado FROM Clientes WHERE IdCliente = @IdCliente";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@IdCliente", clienteId);
+
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                cliente = new Cliente
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("IdCliente")),
+                                    Nome = reader.GetString(reader.GetOrdinal("Nome")),
+                                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                                    Cpf = reader.GetString(reader.GetOrdinal("Cpf")),
+                                    Telefone = reader.GetString(reader.GetOrdinal("Telefone")),
+                                    Cep = reader.GetString(reader.GetOrdinal("Cep")),
+                                    Bairro = reader.GetString(reader.GetOrdinal("Bairro")),
+                                    Logradouro = reader.GetString(reader.GetOrdinal("Logradouro")),
+                                    Numero = reader.GetString(reader.GetOrdinal("Numero")),
+                                    Cidade = reader.GetString(reader.GetOrdinal("Cidade")),
+                                    UF = reader.GetString(reader.GetOrdinal("Estado"))
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new ApplicationException("Erro ao consultar o cliente no banco de dados.", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Erro inesperado ao consultar o cliente.", ex);
+            }
+
+            return cliente;
+        }
 
     }
 }

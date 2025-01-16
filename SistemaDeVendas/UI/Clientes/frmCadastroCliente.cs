@@ -1,8 +1,7 @@
 ﻿using SistemaDeVendas.BLL;
-using SistemaDeVendas.DAL;
 using SistemaDeVendas.Models;
+using SistemaDeVendas.Util;
 using System;
-using System.Diagnostics.Eventing.Reader;
 using System.Windows.Forms;
 
 namespace SistemaDeVendas
@@ -11,7 +10,7 @@ namespace SistemaDeVendas
     {
         BLL_Endereco _bllEndereco = new BLL_Endereco();
         BLL_Cliente _bllCliente = new BLL_Cliente();
-
+        int clienteId;
         public frmCadastroDeCliente()
         {
             InitializeComponent();
@@ -112,7 +111,7 @@ namespace SistemaDeVendas
                     MessageBox.Show($"Erro ao buscar endereço: {ex.Message}", "Erro");
                 }
             }
-        }      
+        }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
@@ -150,6 +149,7 @@ namespace SistemaDeVendas
                 }
             }
         }
+
         private void CarregaGridClientes()
         {
             try
@@ -164,6 +164,57 @@ namespace SistemaDeVendas
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNome.Text) || string.IsNullOrEmpty(mtbCpf.Text))
+            {
+                MessageBox.Show("Por favor, selecione um cliente para editar.", "Atenção");
+                return;
+            }
+
+
+            // Criar o objeto cliente com os dados editados
+            Cliente clienteEditado = new Cliente
+            {
+                Id = clienteId,
+                Nome = txtNome.Text,
+                Cpf = StringUtils.RemoverFormatacao(mtbCpf.Text),
+                Email = txtEmail.Text,
+                Telefone = StringUtils.RemoverFormatacao(txtTelefone.Text),
+                Cep = StringUtils.RemoverFormatacao(mtbCep.Text),
+                Bairro = txtBairro.Text,
+                Logradouro = txtEndereco.Text,
+                Numero = txtNumero.Text,
+                Cidade = txtCidade.Text,
+                UF = txtEstado.Text
+            };
+
+            // Validar os dados do cliente
+            ResultadoValidacao resultado = _bllCliente.ValidarDadosCliente(clienteEditado);
+
+            if (!string.IsNullOrEmpty(resultado.MensagemErro))
+            {
+                MessageBox.Show(resultado.MensagemErro, "Erro de Validação");
+                return;
+            }
+
+            // Atualizar os dados do cliente no banco
+            string retornoEdicao = _bllCliente.AtualizarCliente(clienteEditado);
+
+            if (!string.IsNullOrEmpty(retornoEdicao))
+            {
+                MessageBox.Show(retornoEdicao, "Resultado da Edição");
+                CarregaGridClientes(); // Atualizar a lista de clientes
+            }
+
+            LimparCampos();
+        }
+
+        public void LimparCampos()
         {
             txtNome.Clear();
             mtbCpf.Clear();
@@ -180,7 +231,25 @@ namespace SistemaDeVendas
             txtNome.Focus();
         }
 
-       
-    }
-}  
+        private void dgvClientesCadastrados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                clienteId = Convert.ToInt32(dgvClientesCadastrados.Rows[e.RowIndex].Cells["Id"].Value);
 
+                txtNome.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Nome"].Value.ToString();
+                mtbCpf.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Cpf"].Value.ToString();
+                txtEmail.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Email"].Value.ToString();
+                txtTelefone.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Telefone"].Value.ToString();
+                mtbCep.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Cep"].Value.ToString();
+                txtBairro.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Bairro"].Value.ToString();
+                txtEndereco.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Logradouro"].Value.ToString();
+                txtNumero.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Numero"].Value.ToString();
+                txtCidade.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["Cidade"].Value.ToString();
+                txtEstado.Text = dgvClientesCadastrados.Rows[e.RowIndex].Cells["UF"].Value.ToString();
+            }
+        }
+
+    }
+}
+    
